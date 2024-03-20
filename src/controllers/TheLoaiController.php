@@ -9,10 +9,7 @@ class TheLoaiController
     {
 
         $breadcrumb = [
-            [
-                'url' => '/',
-                'name' => "Trang chủ"
-            ],
+
             [
                 'url' => '/the-loai',
                 'name' => "Thể loại"

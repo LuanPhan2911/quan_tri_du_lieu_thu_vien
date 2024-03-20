@@ -25,10 +25,7 @@ class SachController
     public function themSachView()
     {
         $breadcrumb = [
-            [
-                'url' => '/',
-                'name' => "Trang chủ"
-            ],
+
             [
                 'url' => '/sach',
                 'name' => "Sách"

@@ -13,7 +13,15 @@ $router->get('/sach', 'SachController@sachView');
 $router->get('/tac-gia', 'TacGiaController@tacGiaView');
 $router->get('/the-thu-vien', 'TheThuVienController@theThuVienView');
 $router->get('/the-loai', 'TheLoaiController@theLoaiView');
+
+
+
 $router->get('/nha-xuat-ban', 'NhaXuatBanController@nhaXuatBanView');
+$router->post('/nha-xuat-ban/create', 'NhaXuatBanController@create');
+$router->get('/nha-xuat-ban/edit/{ma_nxb}', 'NhaXuatBanController@edit');
+$router->post('/nha-xuat-ban/edit/{ma_nxb}', 'NhaXuatBanController@update');
+$router->get('/nha-xuat-ban/destroy/{ma_nxb}', 'NhaXuatBanController@destroy');
+
 
 
 

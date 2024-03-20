@@ -9,10 +9,7 @@ class NhanVienController
     {
 
         $breadcrumb = [
-            [
-                'url' => '/',
-                'name' => "Trang chủ"
-            ],
+
             [
                 'url' => '/nhan-vien',
                 'name' => "Nhân viên"

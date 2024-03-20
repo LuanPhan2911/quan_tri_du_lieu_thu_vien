@@ -11,13 +11,15 @@ create table the_loai(
 	ma_tl int primary key auto_increment,
     ten_tl varchar(50) 
 );
+
 create table nha_xuat_ban(
 	ma_nxb int primary key auto_increment,
     ten_nxb varchar(100),
     dia_chi varchar(100),
     email varchar(100),
-    thong_tin_nguoi_dai_dien varchar(255) null
+    thong_tin_nguoi_dai_dien text null
 );
+
 create table sach(
 	ma_sach int primary key auto_increment,
     ten_sach varchar(100),

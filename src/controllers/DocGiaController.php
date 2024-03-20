@@ -9,10 +9,7 @@ class DocGiaController
     {
 
         $breadcrumb = [
-            [
-                'url' => '/',
-                'name' => "Trang chủ"
-            ],
+
             [
                 'url' => '/doc-gia',
                 'name' => "Đọc giả"

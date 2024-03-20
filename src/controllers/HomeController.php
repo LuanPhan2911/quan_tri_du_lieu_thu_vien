@@ -8,12 +8,7 @@ class HomeController
     public function homeView()
     {
 
-        $breadcrumb = [
-            [
-                'url' => '/',
-                'name' => "Trang chủ"
-            ]
-        ];
+        $breadcrumb = [];
         return view('home', [
             'breadcrumb' => $breadcrumb
         ]);

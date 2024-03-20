@@ -9,10 +9,7 @@ class TacGiaController
     {
 
         $breadcrumb = [
-            [
-                'url' => '/',
-                'name' => "Trang chủ"
-            ],
+
             [
                 'url' => '/tac-gia',
                 'name' => "Tác giả"

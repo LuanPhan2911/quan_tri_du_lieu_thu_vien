@@ -51,3 +51,35 @@ function view(string $view, $data = [])
     $view = str_replace(".", "/", $view);
     require_once VIEW_DIR . $view . ".php";
 }
+function post_to_session($ignores = [])
+{
+    foreach ($_POST as $key => $value) {
+        if (count($ignores) > 0) {
+            foreach ($ignores as $ignore_key) {
+                if ($key != $ignore_key) {
+                    $_SESSION[$key] = $value;
+                }
+            }
+        } else {
+            $_SESSION[$key] = $value;
+        }
+    }
+}
+function require_attribute($requires)
+{
+    $check = true;
+    foreach ($requires as $key) {
+
+        if (!array_key_exists($key, $_POST) || empty($_POST[$key])) {
+
+            $check = false;
+        }
+    }
+    return $check;
+}
+function post_to_html_escape()
+{
+    foreach ($_POST as $key => $value) {
+        $_POST[$key] = htmlspecialchars($value);
+    }
+}
