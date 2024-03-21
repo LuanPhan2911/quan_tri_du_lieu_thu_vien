@@ -9,7 +9,8 @@ create table tac_gia(
 
 create table the_loai(
 	ma_tl int primary key auto_increment,
-    ten_tl varchar(50) 
+    ten_tl varchar(100),
+    slug varchar(100)
 );
 
 create table nha_xuat_ban(
@@ -23,11 +24,11 @@ create table nha_xuat_ban(
 create table sach(
 	ma_sach int primary key auto_increment,
     ten_sach varchar(100),
+    slug varchar(100),
     ma_tg int,
     ma_tl int,
     ma_nxb int,
     nam_xuat_ban char(4),
-    
     hinh_anh varchar(255) null,
     
     foreign key(ma_tg) references tac_gia(ma_tg),

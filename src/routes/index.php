@@ -12,7 +12,7 @@ $router->get('/doc-gia', 'DocGiaController@docGiaView');
 $router->get('/sach', 'SachController@sachView');
 $router->get('/tac-gia', 'TacGiaController@tacGiaView');
 $router->get('/the-thu-vien', 'TheThuVienController@theThuVienView');
-$router->get('/the-loai', 'TheLoaiController@theLoaiView');
+
 
 
 
@@ -23,7 +23,9 @@ $router->post('/nha-xuat-ban/edit/{ma_nxb}', 'NhaXuatBanController@update');
 $router->get('/nha-xuat-ban/destroy/{ma_nxb}', 'NhaXuatBanController@destroy');
 
 
-
+$router->get('/the-loai', 'TheLoaiController@theLoaiView');
+$router->post("/the-loai/create", "TheLoaiController@create");
+$router->get("/the-loai/destroy/{ma_tl}", "TheLoaiController@destroy");
 
 
 $router->get('/sach/them', 'SachController@themSachView');

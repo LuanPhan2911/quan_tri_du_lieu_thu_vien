@@ -85,7 +85,7 @@ class NhaXuatBanController
         $nhaXuatBanModel = new NhaXuatBan();
 
         $nhaXuatBanModel->deleteOne($ma_nxb);
-        $_SESSION['msg'] = "Cập nhật nhà xuất bản thành công!";
+        $_SESSION['msg'] = "Xóa nhà xuất bản thành công!";
         return redirect('/nha-xuat-ban');
     }
 }
