@@ -10,7 +10,6 @@ $router->get('/', 'HomeController@homeView');
 $router->get('/nhan-vien', 'NhanVienController@nhanVienView');
 $router->get('/doc-gia', 'DocGiaController@docGiaView');
 $router->get('/sach', 'SachController@sachView');
-$router->get('/tac-gia', 'TacGiaController@tacGiaView');
 $router->get('/the-thu-vien', 'TheThuVienController@theThuVienView');
 
 
@@ -26,6 +25,12 @@ $router->get('/nha-xuat-ban/destroy/{ma_nxb}', 'NhaXuatBanController@destroy');
 $router->get('/the-loai', 'TheLoaiController@theLoaiView');
 $router->post("/the-loai/create", "TheLoaiController@create");
 $router->get("/the-loai/destroy/{ma_tl}", "TheLoaiController@destroy");
+
+$router->get('/tac-gia', 'TacGiaController@tacGiaView');
+$router->post("/tac-gia/create", 'TacGiaController@create');
+$router->get("/tac-gia/edit/{ma_tg}", 'TacGiaController@edit');
+$router->post('/tac-gia/edit/{ma_tg}', 'TacGiaController@update');
+$router->get('/tac-gia/destroy/{ma_tg}', 'TacGiaController@destroy');
 
 
 $router->get('/sach/them', 'SachController@themSachView');
