@@ -8,6 +8,14 @@ function ma_nv()
 {
     return $_SESSION['ma_nv'] ?? NULL;
 }
+function nhan_vien()
+{
+    return [
+        'ho_ten' => $_SESSION['ho_ten'] ?? NULL,
+        'ma_nv' => $_SESSION['ma_nv'] ?? NULL,
+        'vai_tro' => $_SESSION['vai_tro'] ?? NULL,
+    ];
+}
 function flash($key)
 {
     if (isset($_SESSION[$key])) {
@@ -16,10 +24,22 @@ function flash($key)
         return $message;
     }
 }
-
+function notify_no_permission()
+{
+    $_SESSION['err'] = "Không có quyền thực hiện hành động này";
+}
+function get_query_string()
+{
+    return $_SERVER['QUERY_STRING'];
+}
 function check_login(): bool
 {
-    return isset($_SESSION["ma_nv"]);
+    return ma_nv() != NULL;
+}
+function is_admin(): bool
+{
+    $vai_tro = $_SESSION['vai_tro'] ?? 0;
+    return check_login() && $vai_tro == 1;
 }
 function upload_file($file, $target)
 {
@@ -45,6 +65,7 @@ function redirect(string $location)
 {
     header("location:" . $location);
 }
+
 function view(string $view, $data = [])
 {
     extract($data);

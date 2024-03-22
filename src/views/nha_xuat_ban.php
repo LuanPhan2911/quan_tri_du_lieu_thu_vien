@@ -46,8 +46,13 @@
                                         <td class="col-3"><?php echo $each['email'] ?></td>
                                         <td class="col-3"><?php echo $each['dia_chi'] ?></td>
                                         <td>
-                                            <a class="m-2 btn btn-warning" href="/nha-xuat-ban/edit/<?= $each['ma_nxb'] ?>">Sửa</a>
-                                            <a class="m-2 btn btn-danger" href="/nha-xuat-ban/destroy/<?= $each['ma_nxb'] ?>">Xóa</a>
+                                            <?php if (is_admin()) : ?>
+                                                <a class="m-1 btn btn-warning" href="/nha-xuat-ban/edit/<?= $each['ma_nxb'] ?>">Sửa</a>
+                                                <a class="m-1 btn btn-danger destroy" href="/nha-xuat-ban/destroy/<?= $each['ma_nxb'] ?>">Xóa</a>
+                                            <?php else : ?>
+                                                <a class="m-1 btn btn-warning" href="/nha-xuat-ban/edit/<?= $each['ma_nxb'] ?>">Sửa</a>
+                                            <?php endif;  ?>
+
                                         </td>
 
                                     </tr>

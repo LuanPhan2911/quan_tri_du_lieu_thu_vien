@@ -57,7 +57,8 @@ create table nhan_vien(
     ngay_sinh date,
     so_dien_thoai varchar(15),
     email varchar(255) unique,
-    mat_khau varchar(255)
+    mat_khau varchar(255),
+    vai_tro int default 0
 );
 
 create table muon_tra(

@@ -17,9 +17,21 @@
                     <?php require_once __DIR__ . "/layouts/navbar.php" ?>
                 </header>
                 <main>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-create">
-                        Thêm tác giả
-                    </button>
+                    <div class="d-flex gap-0 justify-content-between">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-create">
+                            Thêm tác giả
+                        </button>
+                        <form action="/tac-gia" method="get" class="col-lg-6" id="form-search">
+                            <div class="d-flex gap-0">
+                                <input type="search" class="form-control" placeholder="Tên tác giả..." name="q" value="<?= $_GET['q'] ?? '' ?>">
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="bi bi-search"></i>
+                                </button>
+                            </div>
+                        </form>
+
+                    </div>
+
                     <?php require_once __DIR__ . "/tac_gia/create.php" ?>
 
                     <?php if (empty($ds_tg)) : ?>
@@ -53,8 +65,13 @@
                                         </td>
                                         <td class="col-3"><?= empty($each['ghi_chu']) ? "Ghi chú trống" : $each['ghi_chu'] ?></td>
                                         <td>
-                                            <a class="m-2 btn btn-warning" href="/tac-gia/edit/<?= $each['ma_tg'] ?>">Sửa</a>
-                                            <a class="m-2 btn btn-danger" href="/tac-gia/destroy/<?= $each['ma_tg'] ?>">Xóa</a>
+                                            <?php if (is_admin()) : ?>
+                                                <a class="m-1 btn btn-warning" href="/tac-gia/edit/<?= $each['ma_tg'] ?>">Sửa</a>
+                                                <a class="m-1 btn btn-danger destroy" href="/tac-gia/destroy/<?= $each['ma_tg'] ?>">Xóa</a>
+                                            <?php else : ?>
+                                                <a class="m-1 btn btn-warning" href="/tac-gia/edit/<?= $each['ma_tg'] ?>">Sửa</a>
+                                            <?php endif;  ?>
+
                                         </td>
 
                                     </tr>
@@ -101,6 +118,9 @@
                     $(element).addClass("is-valid").removeClass("is-invalid");
                 }
             })
+            $('input[type=search]').on('search', function(e) {
+                $('#form-search').submit();
+            });
         })
     </script>
 

@@ -14,9 +14,10 @@ class TacGia extends Model
         $statement->execute($arr);
         return $this->conn->lastInsertId();
     }
-    public function all()
+    public function all($q)
     {
-        $statement = $this->conn->query("select * from tac_gia");
+        $statement = $this->conn->query("select * from tac_gia where ten_tg like '%$q%'");
+
         return $statement->fetchAll();
     }
     public function findOne($ma)

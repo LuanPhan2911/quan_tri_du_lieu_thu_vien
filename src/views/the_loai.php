@@ -43,7 +43,11 @@
                                         <td><?php echo $each['ten_tl'] ?></td>
                                         <td><?php echo $each['slug'] ?></td>
                                         <td>
-                                            <a class="btn btn-danger" href="/the-loai/destroy/<?= $each['ma_tl'] ?>">Xóa</a>
+                                            <?php if (is_admin()) : ?>
+                                                <a class="btn btn-danger destroy" href="/the-loai/destroy/<?= $each['ma_tl'] ?>">Xóa</a>
+                                            <?php else : ?>
+                                                <span class="fw-bold">None</span>
+                                            <?php endif;  ?>
                                         </td>
 
                                     </tr>

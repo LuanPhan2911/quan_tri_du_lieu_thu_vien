@@ -23,7 +23,7 @@
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 </script>
 <script>
-    $("#logout").confirm({
+    $(".logout").confirm({
 
         title: 'Thoát?',
         content: 'Sau 10 giây sẽ tự động đăng xuất. Bạn có chắc là muốn đăng xuất không?',
@@ -31,6 +31,22 @@
         buttons: {
             logoutUser: {
                 text: 'Đăng xuất',
+                action: function() {
+                    location.href = this.$target.attr('href');
+                }
+            },
+            cancel: function() {
+
+            }
+        }
+    });
+    $(".destroy").confirm({
+        title: 'Bạn có chắc chắn muốn thực hiện hành động xóa?',
+        content: 'Sau 10 giây sẽ tự động bỏ qua!',
+        autoClose: 'cancel|10000',
+        buttons: {
+            action: {
+                text: 'OK',
                 action: function() {
                     location.href = this.$target.attr('href');
                 }

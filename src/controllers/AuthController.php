@@ -48,7 +48,8 @@ class AuthController
 
 
             $_SESSION["ma_nv"] = $nhan_vien["ma_nv"];
-            $_SESSION["ten_nv"] = $nhan_vien["ten_nv"];
+            $_SESSION["ho_ten"] = $nhan_vien["ho_ten"];
+            $_SESSION['vai_tro'] = $nhan_vien['vai_tro'];
             $_SESSION["msg"] = "Bạn đã đăng nhập thành công!";
             redirect("/");
             exit;
@@ -113,12 +114,8 @@ class AuthController
         ]);
 
         if (isset($ma_nv)) {
-
-            $_SESSION["ten_nv"] = $ho_ten;
-            $_SESSION['ma_nv'] = $ma_nv;
-
             $_SESSION["msg"] = "Bạn đã đăng ký thành công!";
-            redirect("/");
+            redirect("/nhan-vien");
             exit;
         } else {
             $_SESSION['err'] = "Có lỗi xảy ra!";

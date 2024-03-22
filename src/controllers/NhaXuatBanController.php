@@ -34,17 +34,20 @@ class NhaXuatBanController
         if (!require_attribute($requires)) {
             $_SESSION['err'] = "Thiếu trường dữ liệu nhà xuất bản";
             post_to_session();
-            return redirect('/nha-xuat-ban');
+            redirect('/nha-xuat-ban');
+            exit;
         }
         $nhaXuatBanModel = new NhaXuatBan();
         $ma_nxb =  $nhaXuatBanModel->insert($_POST);
         if (empty($ma_nxb)) {
             $_SESSION['err'] = "Lỗi tạo nhà xuất bản!";
             post_to_session();
-            return redirect('/nha-xuat-ban');
+            redirect('/nha-xuat-ban');
+            exit;
         };
         $_SESSION['msg'] = "Tạo nhà xuất bản thành công!";
-        return redirect('/nha-xuat-ban');
+        redirect('/nha-xuat-ban');
+        exit;
     }
     public function edit($ma_nxb)
     {
@@ -74,11 +77,13 @@ class NhaXuatBanController
         if (!require_attribute($requires)) {
             $_SESSION['err'] = "Thiếu trường dữ liệu nhà xuất bản";
             post_to_session();
-            return redirect("/nha-xuat-ban/edit/$ma_nxb");
+            redirect("/nha-xuat-ban/edit/$ma_nxb");
+            exit;
         }
         $nhaXuatBanModel->updateOne($ma_nxb, $_POST);
         $_SESSION['msg'] = "Cập nhật nhà xuất bản thành công!";
-        return redirect('/nha-xuat-ban');
+        redirect('/nha-xuat-ban');
+        exit;
     }
     public function destroy($ma_nxb)
     {
@@ -86,6 +91,7 @@ class NhaXuatBanController
 
         $nhaXuatBanModel->deleteOne($ma_nxb);
         $_SESSION['msg'] = "Xóa nhà xuất bản thành công!";
-        return redirect('/nha-xuat-ban');
+        redirect('/nha-xuat-ban');
+        exit;
     }
 }

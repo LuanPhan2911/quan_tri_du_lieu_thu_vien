@@ -9,7 +9,7 @@ class TacGiaController
 
     public function tacGiaView()
     {
-
+        $q = $_GET['q'] ?? '';
         $breadcrumb = [
 
             [
@@ -18,7 +18,7 @@ class TacGiaController
             ],
         ];
         $tacGiaModel = new TacGia();
-        $ds_tg = $tacGiaModel->all();
+        $ds_tg = $tacGiaModel->all($q);
         return view('tac_gia', [
             'breadcrumb' => $breadcrumb,
             'ds_tg' => $ds_tg
@@ -33,14 +33,16 @@ class TacGiaController
         if (!require_attribute($requires)) {
             $_SESSION['err'] = "Thiếu trường dữ liệu nhà xuất bản";
             post_to_session();
-            return redirect('/tac-gia');
+            redirect('/tac-gia');
+            exit;
         }
         $tacGiaModel = new TacGia();
         $ma =  $tacGiaModel->insert($_POST);
         if (empty($ma)) {
             $_SESSION['err'] = "Lỗi thêm tác giả!";
             post_to_session();
-            return redirect('/tac-gia');
+            redirect('/tac-gia');
+            exit;
         };
         $_SESSION['msg'] = "Thêm tác giả thành công!";
         return redirect('/tac-gia');
@@ -75,7 +77,8 @@ class TacGiaController
         if (!require_attribute($requires)) {
             $_SESSION['err'] = "Thiếu trường dữ liệu tác giả";
             post_to_session();
-            return redirect("/tac-gia/edit/$ma");
+            redirect("/tac-gia/edit/$ma");
+            exit;
         }
         $tacGiaModel->updateOne($ma, $_POST);
         $_SESSION['msg'] = "Cập nhật tác giả thành công!";
@@ -87,6 +90,6 @@ class TacGiaController
 
         $tacGiaModel->deleteOne($ma);
         $_SESSION['msg'] = "Xóa tác giả thành công!";
-        return redirect('/tac-gia');
+        redirect('/tac-gia');
     }
 }

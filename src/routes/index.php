@@ -7,7 +7,6 @@ $router->get("/logout", 'AuthController@logout');
 
 
 $router->get('/', 'HomeController@homeView');
-$router->get('/nhan-vien', 'NhanVienController@nhanVienView');
 $router->get('/doc-gia', 'DocGiaController@docGiaView');
 $router->get('/sach', 'SachController@sachView');
 $router->get('/the-thu-vien', 'TheThuVienController@theThuVienView');
@@ -32,5 +31,10 @@ $router->get("/tac-gia/edit/{ma_tg}", 'TacGiaController@edit');
 $router->post('/tac-gia/edit/{ma_tg}', 'TacGiaController@update');
 $router->get('/tac-gia/destroy/{ma_tg}', 'TacGiaController@destroy');
 
+
+$router->get('/nhan-vien', 'NhanVienController@nhanVienView');
+$router->get('/nhan-vien/edit/{ma_nv}', 'NhanVienController@edit');
+$router->post('/nhan-vien/edit/{ma_nv}', 'NhanVienController@update');
+$router->get('/nhan-vien/destroy/{ma_nv}', 'NhanVienController@destroy');
 
 $router->get('/sach/them', 'SachController@themSachView');

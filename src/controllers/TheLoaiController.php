@@ -33,7 +33,8 @@ class TheLoaiController
         if (!require_attribute($requires)) {
             $_SESSION['err'] = "Thiếu trường dữ liệu thể loại";
             post_to_session();
-            return redirect('/the-loai');
+            redirect('/the-loai');
+            exit;
         }
         $slugGenerator = new SlugGenerator();
         $_POST['slug'] = $slugGenerator->generate($_POST['ten_tl']);
@@ -42,7 +43,8 @@ class TheLoaiController
         if (empty($ma_tl)) {
             $_SESSION['err'] = "Lỗi thêm thể loại!";
             post_to_session();
-            return redirect('/the-loai');
+            redirect('/the-loai');
+            exit;
         };
         $_SESSION['msg'] = "Thêm thể loại thành công!";
         return redirect('/the-loai');

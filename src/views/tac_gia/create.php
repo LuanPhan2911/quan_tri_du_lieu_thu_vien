@@ -13,7 +13,7 @@
                         <input class="form-control" name="ten_tg" type="text" id="ten_tg" value="<?= flash('ten_tg') ?>" />
                     </div>
                     <div class="mb-3">
-                        <label for="website" class="col-form-label">Địa chỉ</label>
+                        <label for="website" class="col-form-label">Địa chỉ website</label>
                         <input class="form-control" name="website" type="text" id="website" value="<?= flash('website') ?>" />
                     </div>
                     <div class="mb-3">
