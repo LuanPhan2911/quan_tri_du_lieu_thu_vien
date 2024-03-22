@@ -1,7 +1,9 @@
 <?php
 $router->before("GET|POST", "/.*", function () {
-
-    if ($_SERVER['REQUEST_URI'] != '/login' && !check_login()) {
+    if ($_SERVER['REQUEST_URI'] == '/login' || $_SERVER['REQUEST_URI'] == '/register') {
+        return;
+    }
+    if (!check_login()) {
         redirect("/login");
         exit;
     }
@@ -46,6 +48,13 @@ $router->before("GET", "/tac-gia/destroy/{ma}", function ($ma) {
     if (!is_admin()) {
         notify_no_permission();
         redirect("/tac-gia");
+        exit;
+    }
+});
+$router->before("GET", "/the-thu-vien/destroy/{ma}", function ($ma) {
+    if (!is_admin()) {
+        notify_no_permission();
+        redirect("/the-thu-vien");
         exit;
     }
 });
