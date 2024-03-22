@@ -46,12 +46,7 @@
                 </a>
 
             </li>
-            <li class="nav-item">
-                <a href="/the-thu-vien" class="nav-link align-middle px-0">
-                    <i class="fs-4 bi-card-heading"></i> <span class="ms-1 d-none d-sm-inline">Thẻ thư viện</span>
-                </a>
 
-            </li>
 
             <li class="nav-item">
                 <a href="/logout" class="nav-link align-middle px-0" id="logout">

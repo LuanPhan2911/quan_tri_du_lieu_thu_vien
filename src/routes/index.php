@@ -7,7 +7,6 @@ $router->get("/logout", 'AuthController@logout');
 
 
 $router->get('/', 'HomeController@homeView');
-$router->get('/doc-gia', 'DocGiaController@docGiaView');
 $router->get('/sach', 'SachController@sachView');
 
 
@@ -35,11 +34,11 @@ $router->get('/nhan-vien/edit/{ma_nv}', 'NhanVienController@edit');
 $router->post('/nhan-vien/edit/{ma_nv}', 'NhanVienController@update');
 $router->get('/nhan-vien/destroy/{ma_nv}', 'NhanVienController@destroy');
 
-$router->get('/the-thu-vien', 'TheThuVienController@theThuVienView');
-$router->post('/the-thu-vien/create', 'TheThuVienController@create');
-$router->get('/the-thu-vien/edit/{so_the}', 'TheThuVienController@edit');
-$router->post('/the-thu-vien/edit/{so_the}', 'TheThuVienController@update');
-$router->get('/the-thu-vien/destroy/{so_the}', 'TheThuVienController@destroy');
 
+$router->get('/doc-gia', 'DocGiaController@docGiaView');
+$router->post("/doc-gia/create", "DocGiaController@create");
+$router->get("/doc-gia/edit/{ma_dg}", "DocGiaController@edit");
+$router->post("/doc-gia/edit/{ma_dg}/the-thu-vien/{so_the}", "DocGiaController@update");
+$router->get("/doc-gia/destroy/{ma_dg}/the-thu-vien/{so_the}", "DocGiaController@destroy");
 
 $router->get('/sach/them', 'SachController@themSachView');

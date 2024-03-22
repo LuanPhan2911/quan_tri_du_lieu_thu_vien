@@ -1,13 +1,21 @@
 <div class="modal fade modal-lg" id="modal-create">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="/the-thu-vien/create" id="the_thu_vien_form" method="post">
+            <form action="/doc-gia/create" id="the_thu_vien_form" method="post">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5">Thêm thẻ thư viện</h1>
+                    <h1 class="modal-title fs-5">Thêm độc giả</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
 
+                    <div class="mb-3">
+                        <label for="ten_dg" class="col-form-label">Tên độc giả</label>
+                        <input class="form-control" name="ten_dg" type="text" id="ten_dg" value="<?= flash('ten_dg') ?>" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="dia_chi" class="col-form-label">Địa chỉ</label>
+                        <input class="form-control" name="dia_chi" type="text" id="dia_chi" value="<?= flash('dia_chi') ?>" />
+                    </div>
                     <div class="mb-3">
                         <label for="ngay_bat_dau" class="col-form-label">Ngày bắt đầu</label>
                         <input class="form-control" name="ngay_bat_dau" type="date" id="ngay_bat_dau" value="<?= flash('ngay_bat_dau') ?>" />
