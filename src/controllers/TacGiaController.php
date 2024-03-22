@@ -31,7 +31,7 @@ class TacGiaController
         post_to_html_escape();
 
         if (!require_attribute($requires)) {
-            $_SESSION['err'] = "Thiếu trường dữ liệu nhà xuất bản";
+            $_SESSION['err'] = "Thiếu trường dữ liệu";
             post_to_session();
             redirect('/tac-gia');
             exit;

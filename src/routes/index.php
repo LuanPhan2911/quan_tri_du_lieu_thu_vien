@@ -7,7 +7,6 @@ $router->get("/logout", 'AuthController@logout');
 
 
 $router->get('/', 'HomeController@homeView');
-$router->get('/sach', 'SachController@sachView');
 
 
 
@@ -41,4 +40,8 @@ $router->get("/doc-gia/edit/{ma_dg}", "DocGiaController@edit");
 $router->post("/doc-gia/edit/{ma_dg}/the-thu-vien/{so_the}", "DocGiaController@update");
 $router->get("/doc-gia/destroy/{ma_dg}/the-thu-vien/{so_the}", "DocGiaController@destroy");
 
-$router->get('/sach/them', 'SachController@themSachView');
+$router->get('/sach', 'SachController@sachView');
+$router->post('/sach/create', 'SachController@create');
+$router->get('/sach/edit/{ma_sach}', 'SachController@edit');
+$router->post('/sach/edit/{ma_sach}', 'SachController@update');
+$router->get('/sach/destroy/{ma_sach}', 'SachController@destroy');

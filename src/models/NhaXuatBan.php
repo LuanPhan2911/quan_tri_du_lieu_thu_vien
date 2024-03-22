@@ -21,6 +21,11 @@ class NhaXuatBan extends Model
         $statement = $this->conn->query("select * from nha_xuat_ban");
         return $statement->fetchAll();
     }
+    public function get()
+    {
+        $statement = $this->conn->query("select * from nha_xuat_ban");
+        return $statement->fetchAll();
+    }
     public function findOne($ma)
     {
         $statement = $this->conn->prepare("select * from nha_xuat_ban where ma_nxb=:ma_nxb limit 1");

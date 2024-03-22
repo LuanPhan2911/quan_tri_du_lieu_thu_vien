@@ -19,6 +19,11 @@ class TheLoai extends Model
         $statement = $this->conn->query("select * from the_loai");
         return $statement->fetchAll();
     }
+    public function get()
+    {
+        $statement = $this->conn->query("select * from the_loai");
+        return $statement->fetchAll();
+    }
     public function deleteOne($ma)
     {
         return $this->conn->query("delete from the_loai where ma_tl='$ma'");

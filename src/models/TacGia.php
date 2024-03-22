@@ -20,6 +20,12 @@ class TacGia extends Model
 
         return $statement->fetchAll();
     }
+    public function get()
+    {
+        $statement = $this->conn->query("select * from tac_gia");
+
+        return $statement->fetchAll();
+    }
     public function findOne($ma)
     {
         $statement = $this->conn->prepare("select * from tac_gia where ma_tg=:ma_tg limit 1");
