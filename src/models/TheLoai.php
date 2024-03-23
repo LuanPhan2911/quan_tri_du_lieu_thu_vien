@@ -24,8 +24,33 @@ class TheLoai extends Model
         $statement = $this->conn->query("select * from the_loai");
         return $statement->fetchAll();
     }
+    public function findOne($ma)
+    {
+        $statement = $this->conn->query("
+        select * from the_loai where ma_tl='$ma'
+        limit 1
+        ");
+        return $statement->fetch();
+    }
+    public function updateOne($ma, $arr)
+    {
+        $statement = $this->conn->prepare("
+        update the_loai
+        set
+        ten_tl=:ten_tl
+        where ma_tl='$ma'
+        ");
+        $statement->execute($arr);
+        return $statement->rowCount();
+    }
     public function deleteOne($ma)
     {
         return $this->conn->query("delete from the_loai where ma_tl='$ma'");
+    }
+
+    public function count_sach($ma)
+    {
+        $statement = $this->conn->query("select count(*) from sach where ma_tl='$ma'");
+        return $statement->fetchColumn();
     }
 }

@@ -51,10 +51,19 @@ $router->before("GET", "/tac-gia/destroy/{ma}", function ($ma) {
         exit;
     }
 });
-$router->before("GET", "/the-thu-vien/destroy/{ma}", function ($ma) {
+$router->before("GET", "/sach/destroy/{ma}", function ($ma) {
     if (!is_admin()) {
         notify_no_permission();
-        redirect("/the-thu-vien");
+        redirect("/sach");
+        exit;
+    }
+});
+
+
+$router->before("GET", "/muon-tra/destroy/{ma_nt}/sach/{ma_sach}", function ($ma_mt, $ma_sach) {
+    if (!is_admin()) {
+        notify_no_permission();
+        redirect("/");
         exit;
     }
 });

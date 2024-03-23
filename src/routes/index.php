@@ -6,7 +6,7 @@ $router->post("/register", 'AuthController@register');
 $router->get("/logout", 'AuthController@logout');
 
 
-$router->get('/', 'HomeController@homeView');
+
 
 
 
@@ -19,6 +19,8 @@ $router->get('/nha-xuat-ban/destroy/{ma_nxb}', 'NhaXuatBanController@destroy');
 
 $router->get('/the-loai', 'TheLoaiController@theLoaiView');
 $router->post("/the-loai/create", "TheLoaiController@create");
+$router->get("/the-loai/edit/{ma_tl}", "TheLoaiController@edit");
+$router->post("/the-loai/edit/{ma_tl}", "TheLoaiController@update");
 $router->get("/the-loai/destroy/{ma_tl}", "TheLoaiController@destroy");
 
 $router->get('/tac-gia', 'TacGiaController@tacGiaView');
@@ -45,3 +47,9 @@ $router->post('/sach/create', 'SachController@create');
 $router->get('/sach/edit/{ma_sach}', 'SachController@edit');
 $router->post('/sach/edit/{ma_sach}', 'SachController@update');
 $router->get('/sach/destroy/{ma_sach}', 'SachController@destroy');
+
+$router->get('/', 'HomeController@homeView');
+$router->get('/muon-tra/create', 'HomeController@create');
+$router->post('/muon-tra/create', 'HomeController@store');
+$router->get('/muon-tra/edit/{ma_mt}/sach/{ma_sach}', 'HomeController@update');
+$router->get('/muon-tra/destroy/{ma_mt}/sach/{ma_sach}', 'HomeController@destroy');

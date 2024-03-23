@@ -29,6 +29,20 @@ class Sach extends Model
 
         return $statement->fetchAll();
     }
+    public function get()
+    {
+        $statement = $this->conn->query("
+        select * from sach
+        join the_loai
+        on the_loai.ma_tl = sach.ma_tl
+        join tac_gia
+        on tac_gia.ma_tg= sach.ma_tg
+        join nha_xuat_ban
+        on nha_xuat_ban.ma_nxb= sach.ma_nxb
+        ");
+
+        return $statement->fetchAll();
+    }
     public function findOne($ma)
     {
         $statement = $this->conn->prepare("

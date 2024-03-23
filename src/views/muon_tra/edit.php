@@ -17,43 +17,38 @@
                     <?php require_once __DIR__ . "/../layouts/navbar.php" ?>
                 </header>
                 <main>
-                    <div class="d-flex justify-content-center my-3">
-                        <div class="col-lg-8">
-                            <form action="/nha-xuat-ban/edit/<?= $nxb['ma_nxb'] ?>" id="nha_xuat_ban_form" method="post">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <div class="fs-5 card-title text-primary">
-                                            Chỉnh sửa nhà xuất bản
-                                        </div>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="mb-3">
-                                            <label for="ten_nxb" class="col-form-label">Tên nhà xuất bản</label>
-                                            <input class="form-control" name="ten_nxb" type="text" id="ten_nxb" value="<?= $nxb['ten_nxb'] ?>" />
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="dia_chi" class="col-form-label">Địa chỉ</label>
-                                            <input class="form-control" name="dia_chi" type="text" id="dia_chi" value="<?= $nxb['dia_chi'] ?>" />
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="email" class="col-form-label">Email</label>
-                                            <input class="form-control" name="email" type="email" id="email" value="<?= $nxb['email'] ?>" />
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="thong_tin_nguoi_dai_dien" class="col-form-label">Thông tin người đại diện</label>
-                                            <textarea class="form-control" name="thong_tin_nguoi_dai_dien" type="text" id="thong_tin_nguoi_dai_dien" rows="3"><?= $nxb['thong_tin_nguoi_dai_dien'] ?></textarea>
-                                        </div>
-
-
-                                    </div>
-                                    <div class="card-footer">
-                                        <button class="btn btn-success">Cập nhật</button>
-                                    </div>
+                    <form action="/nha-xuat-ban/edit/<?= $nxb['ma_nxb'] ?>" id="nha_xuat_ban_form" method="post">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="fs-5 card-title text-primary">
+                                    Chỉnh sửa nhà xuất bản
                                 </div>
-                            </form>
-                        </div>
-                    </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label for="ten_nxb" class="col-form-label">Tên nhà xuất bản</label>
+                                    <input class="form-control" name="ten_nxb" type="text" id="ten_nxb" value="<?= $nxb['ten_nxb'] ?>" />
+                                </div>
+                                <div class="mb-3">
+                                    <label for="dia_chi" class="col-form-label">Địa chỉ</label>
+                                    <input class="form-control" name="dia_chi" type="text" id="dia_chi" value="<?= $nxb['dia_chi'] ?>" />
+                                </div>
+                                <div class="mb-3">
+                                    <label for="email" class="col-form-label">Email</label>
+                                    <input class="form-control" name="email" type="email" id="email" value="<?= $nxb['email'] ?>" />
+                                </div>
+                                <div class="mb-3">
+                                    <label for="thong_tin_nguoi_dai_dien" class="col-form-label">Thông tin người đại diện</label>
+                                    <textarea class="form-control" name="thong_tin_nguoi_dai_dien" type="text" id="thong_tin_nguoi_dai_dien" rows="3"><?= $nxb['thong_tin_nguoi_dai_dien'] ?></textarea>
+                                </div>
 
+
+                            </div>
+                            <div class="card-footer">
+                                <button class="btn btn-success">Cập nhật</button>
+                            </div>
+                        </div>
+                    </form>
                 </main>
             </div>
         </div>

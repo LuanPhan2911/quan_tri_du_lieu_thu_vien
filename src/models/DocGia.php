@@ -17,13 +17,22 @@ class DocGia extends Model
     public function all($q)
     {
         $statement = $this->conn->query("
-        select 
-        doc_gia.ma_dg,doc_gia.ten_dg, doc_gia.dia_chi,
-        the_thu_vien.*
+        select *
         from doc_gia
         join the_thu_vien
         on doc_gia.so_the= the_thu_vien.so_the
         where ten_dg like '%$q%'
+        ");
+
+        return $statement->fetchAll();
+    }
+    public function get()
+    {
+        $statement = $this->conn->query("
+        select *
+        from doc_gia
+        join the_thu_vien
+        on doc_gia.so_the= the_thu_vien.so_the
         ");
 
         return $statement->fetchAll();

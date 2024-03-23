@@ -100,7 +100,13 @@ function require_attribute($requires)
 }
 function post_to_html_escape()
 {
-    foreach ($_POST as $key => $value) {
-        $_POST[$key] = htmlspecialchars($value);
+    foreach ($_POST as $key => $values) {
+        if (is_array($values)) {
+            foreach ($values as $index => $value) {
+                $_POST[$key][$index] = $value;
+            }
+        } else {
+            $_POST[$key] = htmlspecialchars($values);
+        }
     }
 }

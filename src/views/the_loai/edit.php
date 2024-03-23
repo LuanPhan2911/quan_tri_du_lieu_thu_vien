@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php require_once __DIR__ . "/../layouts/styles.php" ?>
-    <title>Cập nhật tác giả</title>
+    <title>Cập nhật thể loại</title>
 </head>
 
 <body>
@@ -19,27 +19,18 @@
                 <main>
                     <div class="d-flex justify-content-center my-3">
                         <div class="col-lg-8">
-                            <form action="/tac-gia/edit/<?= $tac_gia['ma_tg'] ?>" id="tac_gia_form" method="post">
+                            <form action="/the-loai/edit/<?= $tac_gia['ma_tl'] ?>" id="the_loai_form" method="post">
                                 <div class="card shadow">
                                     <div class="card-header">
                                         <div class="fs-5 card-title text-primary">
-                                            Chỉnh sửa tác giả
+                                            Chỉnh sửa thể loại
                                         </div>
                                     </div>
                                     <div class="card-body">
                                         <div class="mb-3">
-                                            <label for="ten_tg" class="col-form-label">Tên tác giả</label>
-                                            <input class="form-control" name="ten_tg" type="text" id="ten_tg" value="<?= $tac_gia['ten_tg'] ?>" />
+                                            <label for="ten_tl" class="col-form-label">Tên thể loại</label>
+                                            <input class="form-control" name="ten_tl" type="text" id="ten_tl" value="<?= $the_loai['ten_tl'] ?>" />
                                         </div>
-                                        <div class="mb-3">
-                                            <label for="website" class="col-form-label">Địa chỉ</label>
-                                            <input class="form-control" name="website" type="text" id="website" value="<?= $tac_gia['website'] ?>" />
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="ghi_chu" class="col-form-label">Ghi chú</label>
-                                            <input class="form-control" name="ghi_chu" type="text" id="ghi_chu" value="<?= $tac_gia['ghi_chu'] ?>" />
-                                        </div>
-
 
                                     </div>
                                     <div class="card-footer">
@@ -62,15 +53,15 @@
     <script>
         $(function() {
 
-            $("#tac_gia_form").validate({
+            $("#the_loai_form").validate({
                 rules: {
-                    ten_tg: {
+                    ten_tl: {
                         required: true,
                     },
                 },
                 messages: {
-                    ten_tg: {
-                        required: "Tên tác giả bắt buộc phải điền!",
+                    ten_tl: {
+                        required: "Tên thể loại không được để trống!",
                     },
                 },
                 errorElement: "div",
