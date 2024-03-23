@@ -37,7 +37,8 @@ class TheLoai extends Model
         $statement = $this->conn->prepare("
         update the_loai
         set
-        ten_tl=:ten_tl
+        ten_tl=:ten_tl,
+        slug=:slug
         where ma_tl='$ma'
         ");
         $statement->execute($arr);

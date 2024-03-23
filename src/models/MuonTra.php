@@ -59,4 +59,9 @@ class MuonTra extends Model
     {
         return $this->conn->query("delete from muon_tra where ma_mt='$ma'");
     }
+    public function count_muon_tra($ma_mt)
+    {
+        $statement = $this->conn->query("select count(*) from chi_tiet_muon_tra where ma_mt='$ma_mt'");
+        return $statement->fetchColumn();
+    }
 }

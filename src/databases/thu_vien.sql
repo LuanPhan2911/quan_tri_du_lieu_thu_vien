@@ -64,12 +64,11 @@ create table nhan_vien(
 create table muon_tra(
 	ma_mt int auto_increment,
     so_the int,
-    ma_nv int,
+    ma_nv int null,
     ngay_muon date default(CURRENT_DATE),
     primary key(ma_mt),
 	foreign key(so_the) references the_thu_vien(so_the),
-	foreign key(ma_nv) references nhan_vien(ma_nv)
-    
+	foreign key(ma_nv) references nhan_vien(ma_nv) on delete set null
 );
 create table chi_tiet_muon_tra(
 	ma_mt int,
@@ -77,6 +76,7 @@ create table chi_tiet_muon_tra(
     ghi_chu varchar(255) null,
     da_tra bool default(false),
     ngay_tra date null,
-    primary key(ma_mt, ma_sach)
-
+    primary key(ma_mt, ma_sach),
+    foreign key(ma_mt) references muon_tra(ma_mt) on delete cascade,
+    foreign key(ma_sach) references sach(ma_sach) on delete cascade
 );

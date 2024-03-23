@@ -100,11 +100,18 @@
                     ten_tg: {
                         required: true,
                     },
+                    website: {
+                        url: true
+                    }
+
                 },
                 messages: {
                     ten_tg: {
                         required: "Tên tác giả bắt buộc phải điền!",
                     },
+                    website: {
+                        url: "Đường dẫn website không hợp lệ"
+                    }
                 },
                 errorElement: "div",
                 errorPlacement: function(error, element) {

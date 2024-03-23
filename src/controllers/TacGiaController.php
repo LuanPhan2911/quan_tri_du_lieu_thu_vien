@@ -88,6 +88,12 @@ class TacGiaController
     {
         $tacGiaModel = new TacGia();
 
+        $count_sach = $tacGiaModel->count_sach($ma);
+        if ($count_sach > 0) {
+            $_SESSION['err'] = "Có $count_sach sách của tác giả, không thể xóa";
+            redirect("/tac-gia");
+            exit;
+        }
         $tacGiaModel->deleteOne($ma);
         $_SESSION['msg'] = "Xóa tác giả thành công!";
         redirect('/tac-gia');

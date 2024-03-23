@@ -87,13 +87,17 @@ class HomeController
     }
     public function destroy($ma_mt, $ma_sach)
     {
+        $muonTraModel = new MuonTra();
         $chiTietMuontraModel = new ChiTietMuonTra();
-
         $row_affected =   $chiTietMuontraModel->deleteOne($ma_mt, $ma_sach);
         if ($row_affected == 0) {
             $_SESSION['err'] = "Xóa mượn trả sách chỉ được thực hiện khi đã trả sách";
             redirect("/");
             exit;
+        }
+        $count_muon_tra = $muonTraModel->count_muon_tra($ma_mt);
+        if ($count_muon_tra == 0) {
+            $muonTraModel->deleteOne($ma_mt);
         }
         $_SESSION['msg'] = "Xóa mượn trả sách thành công!";
         return redirect('/');

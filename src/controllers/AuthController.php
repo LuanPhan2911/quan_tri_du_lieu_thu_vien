@@ -29,9 +29,9 @@ class AuthController
             exit;
         }
 
-        $NhanVien = new NhanVien();
+        $nhanVienModel = new NhanVien();
 
-        $nhan_vien = $NhanVien->exist($email);
+        $nhan_vien = $nhanVienModel->exist($email);
 
 
         if (!empty($nhan_vien)) {
@@ -86,9 +86,9 @@ class AuthController
 
 
 
-        $NhanVien = new NhanVien();
+        $nhanVienModel = new NhanVien();
 
-        $data = $NhanVien->exist($email);
+        $data = $nhanVienModel->exist($email);
 
 
         if (!empty($data)) {
@@ -105,7 +105,7 @@ class AuthController
 
         $mat_khau_hash = password_hash($mat_khau, PASSWORD_BCRYPT);
 
-        $ma_nv = $NhanVien->insert([
+        $ma_nv = $nhanVienModel->insert([
             'ho_ten' => $ho_ten,
             'ngay_sinh' => $ngay_sinh,
             'so_dien_thoai' => $so_dien_thoai,
@@ -128,5 +128,29 @@ class AuthController
         session_unset();
         redirect("/");
         exit;
+    }
+    public function changePassword()
+    {
+        $nhanVienModel = new NhanVien();
+        $requires = ['mat_khau_cu', 'mat_khau_moi'];
+        post_to_html_escape();
+
+        if (!require_attribute($requires)) {
+            $_SESSION['err'] = "Thiếu trường dữ liệu";
+            post_to_session();
+            redirect("/");
+            exit;
+        }
+        $nhan_vien = $nhanVienModel->findOne(ma_nv());
+        $mat_khau_hash = $nhan_vien['mat_khau'];
+        if (!password_verify($_POST['mat_khau_cu'], $mat_khau_hash)) {
+            $_SESSION["err"] = "Mật khẩu củ không đúng!";
+            redirect("/");
+            exit;
+        }
+        $mat_khau_moi_hash = password_hash($_POST['mat_khau_moi'], PASSWORD_BCRYPT);
+        $nhanVienModel->updatePassword($mat_khau_moi_hash);
+        $_SESSION['msg'] = "Đổi mật khẩu thành công!";
+        return redirect('/');
     }
 }

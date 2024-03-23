@@ -19,7 +19,7 @@
                 <main>
                     <div class="d-flex justify-content-center my-3">
                         <div class="col-lg-8">
-                            <form action="/the-loai/edit/<?= $tac_gia['ma_tl'] ?>" id="the_loai_form" method="post">
+                            <form action="/the-loai/edit/<?= $the_loai['ma_tl'] ?>" id="the_loai_form" method="post">
                                 <div class="card shadow">
                                     <div class="card-header">
                                         <div class="fs-5 card-title text-primary">
@@ -34,7 +34,7 @@
 
                                     </div>
                                     <div class="card-footer">
-                                        <button class="btn btn-success">Cập nhật</button>
+                                        <button class="btn btn-success" type="submit">Cập nhật</button>
                                     </div>
                                 </div>
                             </form>

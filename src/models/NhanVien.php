@@ -44,7 +44,7 @@ class NhanVien extends Model
     public function findOne($ma)
     {
         $statement = $this->conn->prepare(
-            "select ma_nv,ho_ten,ngay_sinh,so_dien_thoai,email
+            "select *
             from nhan_vien 
             where ma_nv=:ma_nv limit 1"
         );
@@ -70,5 +70,20 @@ class NhanVien extends Model
     public function deleteOne($ma)
     {
         return $this->conn->query("delete from nhan_vien where ma_nv='$ma'");
+    }
+    public function updatePassword($mat_khau)
+    {
+        $ma = ma_nv();
+        $statement = $this->conn->prepare(
+            "update nhan_vien set
+            mat_khau=:mat_khau
+            where
+            ma_nv='$ma'
+            "
+        );
+        $statement->execute([
+            'mat_khau' => $mat_khau
+        ]);
+        return $statement->rowCount();
     }
 }

@@ -57,4 +57,46 @@
             }
         }
     });
+    $('#change_password_form').validate({
+        rules: {
+            mat_khau_cu: {
+                required: true,
+            },
+            mat_khau_moi: {
+                required: true,
+            },
+            xac_nhan_mat_khau_moi: {
+                required: true,
+                equalTo: "#mat_khau_moi"
+            },
+
+
+        },
+        messages: {
+            mat_khau_cu: {
+                required: "Nhập mật khẩu củ"
+            },
+            mat_khau_moi: {
+                required: "Nhập mật khẩu mới",
+            },
+            xac_nhan_mat_khau_moi: {
+                required: "Nhập lại mật khẩu mới",
+                equalTo: "Mật khẩu mới nhập lại không đúng"
+            },
+
+
+
+        },
+        errorElement: "div",
+        errorPlacement: function(error, element) {
+            error.addClass("invalid-feedback");
+            error.insertAfter(element);
+        },
+        highlight: function(element, errorClass, validClass) {
+            $(element).addClass("is-invalid").removeClass("is-valid");
+        },
+        unhighlight: function(element, errorClass, validClass) {
+            $(element).addClass("is-valid").removeClass("is-invalid");
+        }
+    })
 </script>

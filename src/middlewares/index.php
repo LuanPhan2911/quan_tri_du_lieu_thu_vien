@@ -23,6 +23,8 @@ $router->before("GET|POST", "/nhan-vien/edit/{ma_nv}", function ($ma) {
         }
     }
 });
+
+
 $router->before("GET", "/the-loai/destroy/{ma}", function ($ma) {
     if (!is_admin()) {
         notify_no_permission();

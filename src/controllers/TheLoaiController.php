@@ -80,7 +80,11 @@ class TheLoaiController
             redirect("/the-loai/edit/$ma");
             exit;
         }
-        $theLoaiModel->updateOne($ma, $_POST);
+        $slugGenerator = new SlugGenerator();
+        $theLoaiModel->updateOne($ma, [
+            'ten_tl' => $_POST['ten_tl'],
+            'slug' => $slugGenerator->generate($_POST['ten_tl'])
+        ]);
         $_SESSION['msg'] = "Cập nhật thể loại thành công!";
         return redirect('/the-loai');
     }

@@ -52,4 +52,9 @@ class TacGia extends Model
     {
         return $this->conn->query("delete from tac_gia where ma_tg='$ma'");
     }
+    public function count_sach($ma)
+    {
+        $statement = $this->conn->query("select count(*) from sach where ma_tg='$ma'");
+        return $statement->fetchColumn();
+    }
 }

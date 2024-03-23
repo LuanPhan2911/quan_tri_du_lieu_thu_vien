@@ -88,7 +88,12 @@ class NhaXuatBanController
     public function destroy($ma_nxb)
     {
         $nhaXuatBanModel = new NhaXuatBan();
-
+        $sach_count = $nhaXuatBanModel->count_sach($ma_nxb);
+        if ($sach_count > 0) {
+            $_SESSION['err'] = "Có $sach_count sách sử dụng nhà xuất bản này, không thể xóa!";
+            redirect("/nha-xuat-ban");
+            exit;
+        }
         $nhaXuatBanModel->deleteOne($ma_nxb);
         $_SESSION['msg'] = "Xóa nhà xuất bản thành công!";
         redirect('/nha-xuat-ban');

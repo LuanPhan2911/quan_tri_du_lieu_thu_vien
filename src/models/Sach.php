@@ -81,4 +81,12 @@ class Sach extends Model
     {
         return $this->conn->query("delete from sach where ma_sach='$ma'");
     }
+    public function count_muon_tra($ma_sach)
+    {
+        $statement = $this->conn->query("
+        select count(*) from chi_tiet_muon_tra 
+        where ma_sach='$ma_sach'and da_tra=0
+        ");
+        return $statement->fetchColumn();
+    }
 }

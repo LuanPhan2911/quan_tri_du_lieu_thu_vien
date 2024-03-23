@@ -53,4 +53,9 @@ class NhaXuatBan extends Model
     {
         return $this->conn->query("delete from nha_xuat_ban where ma_nxb='$ma'");
     }
+    public function count_sach($ma)
+    {
+        $statement = $this->conn->query("select count(*) from sach where ma_nxb='$ma'");
+        return $statement->fetchColumn();
+    }
 }

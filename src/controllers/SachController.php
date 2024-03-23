@@ -134,7 +134,16 @@ class SachController
         $sach = $sachModel->findOne($ma);
 
         remove_file($sach['hinh_anh']);
+
+        $count_muon_tra = $sachModel->count_muon_tra($ma);
+        if ($count_muon_tra > 0) {
+            $_SESSION['err'] = "Có $count_muon_tra sách này chưa được trả, không thể xóa!";
+            redirect('/sach');
+            exit;
+        }
         $sachModel->deleteOne($ma);
+
+
         $_SESSION['msg'] = "Xóa sách thành công!";
         redirect('/sach');
     }
