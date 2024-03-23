@@ -61,17 +61,32 @@ class HomeController
         }
         $muonTraModel = new MuonTra();
         $chiTietMuontraModel = new ChiTietMuonTra();
-        $ma_mt =  $muonTraModel->insert([
-            'so_the' => $_POST['so_the'],
-            'ma_nv' => ma_nv()
-        ]);
 
-        foreach ($_POST['ds_ma_sach'] as $ma_sach) {
-            $chiTietMuontraModel->insert([
-                'ma_mt' => $ma_mt,
-                'ma_sach' => $ma_sach,
-                'ghi_chu' => $_POST['ghi_chu']
+
+        try {
+            $muonTraModel->beginTransaction();
+            $ma_mt =  $muonTraModel->insert([
+                'so_the' => $_POST['so_the'],
+                'ma_nv' => ma_nv()
             ]);
+            $muonTraModel->commit();
+
+            $chiTietMuontraModel->beginTransaction();
+            foreach ($_POST['ds_ma_sach'] as $ma_sach) {
+                $chiTietMuontraModel->insert([
+                    'ma_mt' => $ma_mt,
+                    'ma_sach' => $ma_sach,
+                    'ghi_chu' => $_POST['ghi_chu']
+                ]);
+            }
+            $chiTietMuontraModel->commit();
+        } catch (\Throwable $th) {
+            $muonTraModel->rollback();
+            $chiTietMuontraModel->rollback();
+            $_SESSION['err'] = "Đăng ký mượn sách thất bại!";
+            return redirect('/');
+            exit;
+            //throw $th;
         }
         $_SESSION['msg'] = "Đăng ký mượn sách thành công!";
         return redirect('/');

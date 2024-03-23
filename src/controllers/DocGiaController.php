@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\DocGia;
 use App\Models\TheThuVien;
 
+
 class DocGiaController
 {
 
@@ -37,26 +38,33 @@ class DocGiaController
             redirect('/doc-gia');
             exit;
         }
-        $theThuVienModel = new TheThuVien();
-        $docGiaModel = new DocGia();
-        $so_the = $theThuVienModel->insert([
-            'ngay_bat_dau' => $_POST['ngay_bat_dau'],
-            'ngay_het_han' => $_POST['ngay_het_han'],
-            'ghi_chu' => $_POST['ghi_chu'],
-        ]);
+        try {
+            $theThuVienModel = new TheThuVien();
+            $theThuVienModel->beginTransaction();
+            $so_the = $theThuVienModel->insert([
+                'ngay_bat_dau' => $_POST['ngay_bat_dau'],
+                'ngay_het_han' => $_POST['ngay_het_han'],
+                'ghi_chu' => $_POST['ghi_chu'],
+            ]);
+            $theThuVienModel->commit();
 
-        $_POST['so_the'] = $so_the;
-        $ma =  $docGiaModel->insert([
-            'ten_dg' => $_POST['ten_dg'],
-            'dia_chi' => $_POST['dia_chi'],
-            'so_the' => $so_the
-        ]);
-        if (empty($ma)) {
-            $_SESSION['err'] = "Lỗi thêm độc giả!";
-            post_to_session();
+            $docGiaModel = new DocGia();
+            $docGiaModel->beginTransaction();
+            $_POST['so_the'] = $so_the;
+            $docGiaModel->insert([
+                'ten_dg' => $_POST['ten_dg'],
+                'dia_chi' => $_POST['dia_chi'],
+                'so_the' => $so_the
+            ]);
+            $docGiaModel->commit();
+        } catch (\Throwable $th) {
+            $theThuVienModel->rollBack();
+            $docGiaModel->rollBack();
+            $_SESSION['err'] = "Thêm độc giả thất bại!";
             redirect('/doc-gia');
             exit;
-        };
+        }
+
         $_SESSION['msg'] = "Thêm độc giả thành công!";
         redirect('/doc-gia');
     }
@@ -94,18 +102,31 @@ class DocGiaController
             redirect("/doc-gia/edit/$ma_dg");
             exit;
         }
+        try {
+            $docGiaModel->beginTransaction();
+            $docGiaModel->updateOne($ma_dg, [
+                'ten_dg' => $_POST['ten_dg'],
+                'dia_chi' => $_POST['dia_chi'],
+                'so_the' => $so_the
 
-        $docGiaModel->updateOne($ma_dg, [
-            'ten_dg' => $_POST['ten_dg'],
-            'dia_chi' => $_POST['dia_chi'],
-            'so_the' => $so_the
+            ]);
+            $docGiaModel->commit();
 
-        ]);
-        $theThuVienModel->updateOne($so_the, [
-            'ngay_bat_dau' => $_POST['ngay_bat_dau'],
-            'ngay_het_han' => $_POST['ngay_het_han'],
-            'ghi_chu' => $_POST['ghi_chu'],
-        ]);
+            $theThuVienModel->beginTransaction();
+            $theThuVienModel->updateOne($so_the, [
+                'ngay_bat_dau' => $_POST['ngay_bat_dau'],
+                'ngay_het_han' => $_POST['ngay_het_han'],
+                'ghi_chu' => $_POST['ghi_chu'],
+            ]);
+            $theThuVienModel->commit();
+        } catch (\Throwable $th) {
+            $theThuVienModel->rollBack();
+            $docGiaModel->rollBack();
+            $_SESSION['err'] = "Cập nhật độc giả thất bại!";
+            redirect('/doc-gia');
+            exit;
+        }
+
         $_SESSION['msg'] = "Cập nhật độc giả thành công!";
         return redirect('/doc-gia');
     }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 class TheThuVien extends Model
 {
+
     public function insert($arr)
     {
         $statement = $this->conn->prepare(

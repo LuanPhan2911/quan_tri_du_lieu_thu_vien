@@ -12,7 +12,7 @@ $dotenv->load();
 
 class Model
 {
-    protected $conn;
+    public $conn;
     public function __construct()
     {
         try {
@@ -27,7 +27,18 @@ class Model
 
         }
     }
-
+    public function beginTransaction()
+    {
+        return $this->conn->beginTransaction();
+    }
+    public function commit()
+    {
+        return $this->conn->commit();
+    }
+    public function rollback()
+    {
+        return $this->conn->rollBack();
+    }
     public function __destruct()
     {
         $this->conn = NULL;
