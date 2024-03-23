@@ -23,7 +23,7 @@
                         </a>
                         <form action="/" method="get" class="col-lg-6" id='form-search'>
                             <div class="d-flex gap-0">
-                                <input type="search" class="form-control" placeholder="Tên người mượn... Tên sách..." name="q" value="<?= $_GET['q'] ?? '' ?>">
+                                <input type="search" class="form-control" placeholder="Tên độc giả... Tên sách..." name="q" value="<?= $_GET['q'] ?? '' ?>">
                                 <button class="btn btn-primary" type="submit">
                                     <i class="bi bi-search"></i>
                                 </button>
@@ -48,6 +48,8 @@
                                     <th>Ngày trả</th>
                                     <th>Hành động</th>
                                 </tr>
+
+                            </thead>
                             <tbody>
                                 <?php foreach ($ds_mt as $each) { ?>
                                     <tr class="<?= $each['da_tra'] == 0 ? 'table-warning' : 'table-success' ?>">
@@ -58,12 +60,12 @@
                                         <td class="fw-bold"><?= $each['ngay_tra'] == NULL ? "Chưa trả" : $each['ngay_tra'] ?></td>
                                         <td>
                                             <?php if (is_admin()) : ?>
-                                                <a class="m-1 btn btn-warning" href="/muon-tra/edit/<?= $each['ma_mt'] ?>/sach/<?= $each['ma_sach'] ?>">Trả sách</a>
+                                                <a class="m-1 btn btn-warning confirm" href="/muon-tra/edit/<?= $each['ma_mt'] ?>/sach/<?= $each['ma_sach'] ?>">Trả sách</a>
                                                 <?php if ($each['da_tra'] != 0) : ?>
                                                     <a class="m-1 btn btn-danger destroy" href="/muon-tra/destroy/<?= $each['ma_mt'] ?>/sach/<?= $each['ma_sach'] ?>">Xóa</a>
                                                 <?php endif;  ?>
                                             <?php else : ?>
-                                                <a class="m-1 btn btn-warning" href="/muon-tra/edit/<?= $each['ma_mt'] ?>/sach/<?= $each['ma_sach'] ?>">Trả sách</a>
+                                                <a class="m-1 btn btn-warning confirm" href="/muon-tra/edit/<?= $each['ma_mt'] ?>/sach/<?= $each['ma_sach'] ?>">Trả sách</a>
                                             <?php endif;  ?>
                                         </td>
                                     </tr>
@@ -71,8 +73,8 @@
 
 
                             </tbody>
-                            </thead>
                         </table>
+                        <?php require_once __DIR__ . "/layouts/paginate_navigation.php" ?>
                     <?php endif;  ?>
                 </main>
             </div>

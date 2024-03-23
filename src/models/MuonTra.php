@@ -38,6 +38,31 @@ class MuonTra extends Model
 
         return $statement->fetchAll();
     }
+    public function paginate($q, $limit = 10)
+    {
+        $page =  htmlspecialchars($_GET['page'] ?? 1);
+        $offset = ($page - 1) * $limit;
+
+
+        $statement = $this->conn->prepare("call 
+        phan_trang_muon_tra(:q,:limit,:offset,@total_record,@total_page)
+        ");
+        $statement->execute([
+            'q' => $q,
+            'limit' => $limit,
+            'offset' => $offset
+        ]);
+        $data = $statement->fetchAll();
+        $statement->closeCursor();
+        $total_record = $this->getVar('@total_record');
+        $total_page = $this->getVar('@total_page');
+        return [
+            'data' => $data,
+            'total_record' => $total_record,
+            'total_page' => $total_page,
+            'page' => $page,
+        ];
+    }
     public function get()
     {
         $statement = $this->conn->query("

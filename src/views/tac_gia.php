@@ -49,6 +49,8 @@
                                     <th>Ghi chú</th>
                                     <th>Hành động</th>
                                 </tr>
+
+                            </thead>
                             <tbody>
                                 <?php foreach ($ds_tg as $each) { ?>
                                     <tr>
@@ -79,7 +81,6 @@
 
 
                             </tbody>
-                            </thead>
                         </table>
                     <?php endif;  ?>
                 </main>

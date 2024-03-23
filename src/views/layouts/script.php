@@ -57,6 +57,22 @@
             }
         }
     });
+    $(".confirm").confirm({
+        title: 'Bạn có chắc chắn muốn thực hiện hành động?',
+        content: 'Sau 10 giây sẽ tự động bỏ qua!',
+        autoClose: 'cancel|10000',
+        buttons: {
+            action: {
+                text: 'OK',
+                action: function() {
+                    location.href = this.$target.attr('href');
+                }
+            },
+            cancel: function() {
+
+            }
+        }
+    });
     $('#change_password_form').validate({
         rules: {
             mat_khau_cu: {

@@ -23,7 +23,7 @@
                         </button>
                         <form action="/doc-gia" method="get" class="col-lg-6" id='form-search'>
                             <div class="d-flex gap-0">
-                                <input type="search" class="form-control" placeholder="Tên đọc giả..." name="q" value="<?= $_GET['q'] ?? '' ?>">
+                                <input type="search" class="form-control" placeholder="Tên đọc giả..., Địa chỉ..." name="q" value="<?= $_GET['q'] ?? '' ?>">
                                 <button class="btn btn-primary" type="submit">
                                     <i class="bi bi-search"></i>
                                 </button>
@@ -50,6 +50,8 @@
                                     <th>Ghi chú</th>
                                     <th>Hành động</th>
                                 </tr>
+
+                            </thead>
                             <tbody>
                                 <?php foreach ($ds_dg as $each) { ?>
                                     <tr>
@@ -74,8 +76,8 @@
 
 
                             </tbody>
-                            </thead>
                         </table>
+                        <?php require_once __DIR__ . "/layouts/paginate_navigation.php" ?>
                     <?php endif;  ?>
                 </main>
             </div>

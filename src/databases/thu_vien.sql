@@ -80,3 +80,59 @@ create table chi_tiet_muon_tra(
     foreign key(ma_mt) references muon_tra(ma_mt) on delete cascade,
     foreign key(ma_sach) references sach(ma_sach) on delete cascade
 );
+
+delimiter $
+drop procedure if exists phan_trang_sach $
+create procedure phan_trang_sach(
+	in q varchar(100),
+	in n_limit int,
+    in n_offset int,
+	inout total_record int,
+    inout total_page int
+)
+begin
+	set total_record= (select count(*) from sach where ten_sach like concat('%', q, '%'));
+    set total_page= ceil(total_record / n_limit);
+    select * from sach
+        join the_loai
+        on the_loai.ma_tl = sach.ma_tl
+        join tac_gia
+        on tac_gia.ma_tg= sach.ma_tg
+        join nha_xuat_ban
+        on nha_xuat_ban.ma_nxb= sach.ma_nxb
+        where ten_sach like concat('%', q, '%')
+        limit n_limit
+        offset n_offset
+        ;
+end $
+delimiter ;
+
+delimiter $
+drop procedure if exists phan_trang_doc_gia $
+create procedure phan_trang_doc_gia(
+	in q varchar(100),
+	in n_limit int,
+    in n_offset int,
+	inout total_record int,
+    inout total_page int
+)
+begin
+	set total_record= (select count(*) from sach where ten_sach like concat('%', q, '%'));
+    set total_page= ceil(total_record / n_limit);
+select *
+        from doc_gia
+        join the_thu_vien
+        on doc_gia.so_the= the_thu_vien.so_the
+        where 
+        ten_dg like concat('%', q, '%')
+        or
+        dia_chi like concat('%', q, '%')
+        limit n_limit
+        offset n_offset
+        ;
+end $
+delimiter ;
+
+set @total_page= 0;
+set @total_record= 0;
+call phan_trang_sach('', 5, 5, @total_record, @total_page );

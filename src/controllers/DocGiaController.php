@@ -20,10 +20,19 @@ class DocGiaController
             ],
         ];
         $docGiaModel = new DocGia();
-        $ds_dg = $docGiaModel->all($q);
+        [
+            'data' => $ds_dg,
+            'total_page' => $total_page,
+            'total_record' => $total_record,
+            'page' => $page
+
+        ] = $docGiaModel->paginate($q, 10);
         return view('doc_gia', [
             'breadcrumb' => $breadcrumb,
-            'ds_dg' => $ds_dg
+            'ds_dg' => $ds_dg,
+            'total_page' => $total_page,
+            'total_record' => $total_record,
+            'page' => $page
         ]);
     }
     public function create()

@@ -36,6 +36,8 @@
                                     <th>Slug</th>
                                     <th>Hành động</th>
                                 </tr>
+
+                            </thead>
                             <tbody>
                                 <?php foreach ($ds_tl as $each) { ?>
                                     <tr>
@@ -57,7 +59,6 @@
 
 
                             </tbody>
-                            </thead>
                         </table>
                     <?php endif;  ?>
                 </main>

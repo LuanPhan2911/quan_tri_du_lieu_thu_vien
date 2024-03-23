@@ -50,6 +50,7 @@
                                     <th>Nhà xuất bản</th>
                                     <th>Hành động</th>
                                 </tr>
+                            </thead>
                             <tbody>
                                 <?php foreach ($ds_sach as $each) { ?>
                                     <tr>
@@ -75,8 +76,8 @@
 
 
                             </tbody>
-                            </thead>
                         </table>
+                        <?php require_once __DIR__ . "/layouts/paginate_navigation.php" ?>
                     <?php endif;  ?>
                 </main>
             </div>

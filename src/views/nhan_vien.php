@@ -53,6 +53,8 @@
                                     <th>Số điện thoại</th>
                                     <th>Hành động</th>
                                 </tr>
+
+                            </thead>
                             <tbody>
                                 <?php foreach ($ds_nv as $each) { ?>
                                     <tr class="<?= ma_nv() == $each['ma_nv'] ? "table-success" : "" ?>">
@@ -82,7 +84,6 @@
 
 
                             </tbody>
-                            </thead>
                         </table>
                     <?php endif;  ?>
                 </main>

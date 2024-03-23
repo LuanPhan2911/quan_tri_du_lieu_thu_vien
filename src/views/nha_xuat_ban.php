@@ -38,6 +38,8 @@
                                     <th>Địa chỉ</th>
                                     <th>Hành động</th>
                                 </tr>
+
+                            </thead>
                             <tbody>
                                 <?php foreach ($ds_nxb as $each) { ?>
                                     <tr>
@@ -60,7 +62,6 @@
 
 
                             </tbody>
-                            </thead>
                         </table>
                     <?php endif;  ?>
 

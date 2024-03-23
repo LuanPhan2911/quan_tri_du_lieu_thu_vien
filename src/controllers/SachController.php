@@ -28,19 +28,29 @@ class SachController
         $theLoaiModel = new TheLoai();
         $nhaXuatbanModel = new NhaXuatBan();
         $tacGiaModel = new TacGia();
+
         $sachModel = new Sach();
 
         $ds_tg = $tacGiaModel->get();
         $ds_nxb = $nhaXuatbanModel->get();
         $ds_tl = $theLoaiModel->get();
 
-        $ds_sach = $sachModel->all($q);
+        [
+            'data' => $ds_sach,
+            'total_page' => $total_page,
+            'total_record' => $total_record,
+            'page' => $page
+
+        ] = $sachModel->paginate($q, 5);
         return view('sach', [
             'breadcrumb' => $breadcrumb,
             'ds_tg' => $ds_tg,
             'ds_nxb' => $ds_nxb,
             'ds_tl' => $ds_tl,
-            'ds_sach' => $ds_sach
+            'ds_sach' => $ds_sach,
+            'total_page' => $total_page,
+            'total_record' => $total_record,
+            'page' => $page
         ]);
     }
     public function create()

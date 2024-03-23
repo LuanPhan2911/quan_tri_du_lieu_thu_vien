@@ -39,6 +39,10 @@ class Model
     {
         return $this->conn->rollBack();
     }
+    public function getVar($var)
+    {
+        return $this->conn->query("select $var")->fetchColumn();
+    }
     public function __destruct()
     {
         $this->conn = NULL;

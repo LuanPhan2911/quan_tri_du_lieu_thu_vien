@@ -17,12 +17,21 @@ class HomeController
         $breadcrumb = [];
         $muonTraModel = new MuonTra();
 
-        $ds_mt = $muonTraModel->all($q);
+        [
+            'data' => $ds_mt,
+            'total_page' => $total_page,
+            'total_record' => $total_record,
+            'page' => $page
+
+        ] = $muonTraModel->paginate($q, 10);
 
 
         return view('home', [
             'breadcrumb' => $breadcrumb,
-            'ds_mt' => $ds_mt
+            'ds_mt' => $ds_mt,
+            'total_page' => $total_page,
+            'total_record' => $total_record,
+            'page' => $page
         ]);
     }
     public function create()

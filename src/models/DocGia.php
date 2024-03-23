@@ -21,10 +21,38 @@ class DocGia extends Model
         from doc_gia
         join the_thu_vien
         on doc_gia.so_the= the_thu_vien.so_the
-        where ten_dg like '%$q%'
+        where 
+        ten_dg like '%$q%'
+        or
+        dia_chi like '%$q%'
         ");
 
         return $statement->fetchAll();
+    }
+    public function paginate($q, $limit = 10)
+    {
+        $page =  htmlspecialchars($_GET['page'] ?? 1);
+        $offset = ($page - 1) * $limit;
+
+
+        $statement = $this->conn->prepare("call 
+        phan_trang_doc_gia(:q,:limit,:offset,@total_record,@total_page)
+        ");
+        $statement->execute([
+            'q' => $q,
+            'limit' => $limit,
+            'offset' => $offset
+        ]);
+        $data = $statement->fetchAll();
+        $statement->closeCursor();
+        $total_record = $this->getVar('@total_record');
+        $total_page = $this->getVar('@total_page');
+        return [
+            'data' => $data,
+            'total_record' => $total_record,
+            'total_page' => $total_page,
+            'page' => $page,
+        ];
     }
     public function get()
     {
