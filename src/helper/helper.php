@@ -28,6 +28,10 @@ function notify_no_permission()
 {
     $_SESSION['err'] = "Không có quyền thực hiện hành động này";
 }
+function unauthenticated()
+{
+    $_SESSION['err'] = "Vui lòng đăng nhập để thực hiện!";
+}
 function get_query_string()
 {
     return $_SERVER['QUERY_STRING'];

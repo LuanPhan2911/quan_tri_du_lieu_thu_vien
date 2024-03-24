@@ -55,6 +55,7 @@
         </div>
 
         <?php require_once __DIR__ . "/layouts/toast_error.php"; ?>
+        <?php require_once __DIR__ . "/layouts/toast_success.php"; ?>
     </main>
     <?php require_once __DIR__ . "/layouts/footer.php" ?>
     <?php require_once __DIR__ . "/layouts/script.php" ?>
