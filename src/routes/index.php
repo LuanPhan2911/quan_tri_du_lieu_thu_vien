@@ -7,6 +7,7 @@ $router->get("/logout", 'AuthController@logout');
 $router->post('/change-password', 'AuthController@changePassword');
 
 
+$router->get('/', 'HomeController@homeView');
 
 
 
@@ -42,6 +43,7 @@ $router->post("/doc-gia/create", "DocGiaController@create");
 $router->get("/doc-gia/edit/{ma_dg}", "DocGiaController@edit");
 $router->post("/doc-gia/edit/{ma_dg}/the-thu-vien/{so_the}", "DocGiaController@update");
 $router->get("/doc-gia/destroy/{ma_dg}/the-thu-vien/{so_the}", "DocGiaController@destroy");
+$router->get("/doc-gia/thong-ke", "DocGiaController@thongKeDocGia");
 
 $router->get('/sach', 'SachController@sachView');
 $router->post('/sach/create', 'SachController@create');
@@ -49,8 +51,17 @@ $router->get('/sach/edit/{ma_sach}', 'SachController@edit');
 $router->post('/sach/edit/{ma_sach}', 'SachController@update');
 $router->get('/sach/destroy/{ma_sach}', 'SachController@destroy');
 
-$router->get('/', 'HomeController@homeView');
-$router->get('/muon-tra/create', 'HomeController@create');
-$router->post('/muon-tra/create', 'HomeController@store');
-$router->get('/muon-tra/edit/{ma_mt}/sach/{ma_sach}', 'HomeController@update');
-$router->get('/muon-tra/destroy/{ma_mt}/sach/{ma_sach}', 'HomeController@destroy');
+$router->get('/muon-tra', 'MuonTraController@muonTraView');
+$router->get('/muon-tra/create', 'MuonTraController@create');
+$router->post('/muon-tra/create', 'MuonTraController@store');
+$router->get('/muon-tra/edit/{ma_mt}/sach/{ma_sach}', 'MuonTraController@update');
+$router->get('/muon-tra/destroy/{ma_mt}/sach/{ma_sach}', 'MuonTraController@destroy');
+$router->get('/muon-tra/thong-ke', 'MuonTraController@thongKeMuonTra');
+
+
+$router->get("/download/nhan-vien", "HomeController@downloadNhanVienCSV");
+$router->get("/download/nha-xuat-ban", "HomeController@downloadNhaXuatBanCSV");
+$router->get("/download/muon-tra", "HomeController@downloadMuonTraCSV");
+$router->get("/download/sach", "HomeController@downloadSachCSV");
+$router->get("/download/doc-gia", "HomeController@downloadDocGiaCSV");
+$router->get("/download/tac-gia", "HomeController@downloadTacGiaCSV");

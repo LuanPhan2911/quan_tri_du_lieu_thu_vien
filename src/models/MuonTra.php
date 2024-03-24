@@ -69,7 +69,7 @@ class MuonTra extends Model
         select 
         muon_tra.*,
         chi_tiet_muon_tra.*,
-        sach.ten_sach 
+        sach.* 
         from muon_tra
         join chi_tiet_muon_tra
         on muon_tra.ma_mt = chi_tiet_muon_tra.ma_mt
@@ -88,5 +88,22 @@ class MuonTra extends Model
     {
         $statement = $this->conn->query("select count(*) from chi_tiet_muon_tra where ma_mt='$ma_mt'");
         return $statement->fetchColumn();
+    }
+
+    public function thong_ke_muon_tra(string $proc)
+    {
+        $statement = $this->conn->prepare(
+            "call $proc(@count_muon,@count_tra)"
+        );
+        $statement->execute();
+        $statement->closeCursor();
+
+        $count_muon = $this->getVar("@count_muon");
+        $count_tra = $this->getVar("@count_tra");
+
+        return [
+            'count_muon' => $count_muon,
+            'count_tra' => $count_tra
+        ];
     }
 }

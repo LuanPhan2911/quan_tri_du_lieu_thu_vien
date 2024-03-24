@@ -41,6 +41,16 @@ class NhanVien extends Model
         );
         return $statement->fetchAll();
     }
+    public function get()
+    {
+
+        $statement = $this->conn->query(
+            "select ma_nv,ho_ten,ngay_sinh,so_dien_thoai,email
+            from nhan_vien
+            "
+        );
+        return $statement->fetchAll();
+    }
     public function findOne($ma)
     {
         $statement = $this->conn->prepare(
@@ -85,5 +95,12 @@ class NhanVien extends Model
             'mat_khau' => $mat_khau
         ]);
         return $statement->rowCount();
+    }
+    public function thong_ke_chung()
+    {
+        $statement = $this->conn->query("call thong_ke_chung()");
+        $data = $statement->fetch();
+        $statement->closeCursor();
+        return $data;
     }
 }

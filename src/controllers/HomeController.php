@@ -5,125 +5,72 @@ namespace App\Controllers;
 use App\Models\ChiTietMuonTra;
 use App\Models\DocGia;
 use App\Models\MuonTra;
+use App\Models\NhanVien;
+use App\Models\NhaXuatBan;
 use App\Models\Sach;
+use App\Models\TacGia;
 
 class HomeController
 {
-
     public function homeView()
     {
 
-        $q = $_GET['q'] ?? '';
         $breadcrumb = [];
-        $muonTraModel = new MuonTra();
 
-        [
-            'data' => $ds_mt,
-            'total_page' => $total_page,
-            'total_record' => $total_record,
-            'page' => $page
+        $nhanVienModel = new NhanVien();
 
-        ] = $muonTraModel->paginate($q, 10);
-
-
-        return view('home', [
+        $thong_ke_chung = $nhanVienModel->thong_ke_chung();
+        return view("home", [
             'breadcrumb' => $breadcrumb,
-            'ds_mt' => $ds_mt,
-            'total_page' => $total_page,
-            'total_record' => $total_record,
-            'page' => $page
+            'thong_ke_chung' => $thong_ke_chung
         ]);
     }
-    public function create()
+    public function downloadNhanVienCSV()
     {
-        $breadcrumb = [
-            [
-                'url' => '/muon-tra',
-                'name' => "Mượn trả"
-            ],
-            [
-                'url' => "/muon-tra/create",
-                'name' => "Thêm"
-            ],
-        ];
+        $nhanVienModel = new NhanVien();
+
+        $ds_nv = $nhanVienModel->get();
+
+        echo array_csv_download($ds_nv, "nhan_vien.csv");
+    }
+    public function downloadDocGiaCSV()
+    {
         $docGiaModel = new DocGia();
-        $sachModel = new Sach();
 
         $ds_dg = $docGiaModel->get();
+
+        echo array_csv_download($ds_dg, "doc_gia.csv");
+    }
+    public function downloadSachCSV()
+    {
+        $sachModel = new Sach();
+
         $ds_sach = $sachModel->get();
-        return view('muon_tra.create', [
-            'breadcrumb' => $breadcrumb,
-            'ds_dg' => $ds_dg,
-            'ds_sach' => $ds_sach
-        ]);
+
+        echo array_csv_download($ds_sach, "sach.csv");
     }
-    public function store()
+    public function downloadTacGiaCSV()
     {
-        $requires = ['so_the', 'ds_ma_sach'];
-        post_to_html_escape();
+        $tacGiaModel = new TacGia();
 
-        if (!require_attribute($requires)) {
-            $_SESSION['err'] = "Thiếu trường dữ liệu";
-            post_to_session();
-            redirect('/');
-            exit;
-        }
-        $muonTraModel = new MuonTra();
-        $chiTietMuontraModel = new ChiTietMuonTra();
+        $ds_tg = $tacGiaModel->get();
 
-
-        try {
-            $muonTraModel->beginTransaction();
-            $ma_mt =  $muonTraModel->insert([
-                'so_the' => $_POST['so_the'],
-                'ma_nv' => ma_nv()
-            ]);
-            $muonTraModel->commit();
-
-            $chiTietMuontraModel->beginTransaction();
-            foreach ($_POST['ds_ma_sach'] as $ma_sach) {
-                $chiTietMuontraModel->insert([
-                    'ma_mt' => $ma_mt,
-                    'ma_sach' => $ma_sach,
-                    'ghi_chu' => $_POST['ghi_chu']
-                ]);
-            }
-            $chiTietMuontraModel->commit();
-        } catch (\Throwable $th) {
-            $muonTraModel->rollback();
-            $chiTietMuontraModel->rollback();
-            $_SESSION['err'] = "Đăng ký mượn sách thất bại!";
-            return redirect('/');
-            exit;
-            //throw $th;
-        }
-        $_SESSION['msg'] = "Đăng ký mượn sách thành công!";
-        return redirect('/');
+        echo array_csv_download($ds_tg, "tac_gia.csv");
     }
-    public function update($ma_mt, $ma_sach)
+    public function downloadNhaXuatBanCSV()
     {
-        $chiTietMuontraModel = new ChiTietMuonTra();
+        $nhaXuatBanModel = new NhaXuatBan();
 
-        $chiTietMuontraModel->updateTraSach($ma_mt, $ma_sach);
+        $ds_nxb = $nhaXuatBanModel->get();
 
-        $_SESSION['msg'] = "Trả sách thành công";
-        return redirect('/');
+        echo array_csv_download($ds_nxb, "nha_xuat_ban.csv");
     }
-    public function destroy($ma_mt, $ma_sach)
+    public function downloadMuonTraCSV()
     {
         $muonTraModel = new MuonTra();
-        $chiTietMuontraModel = new ChiTietMuonTra();
-        $row_affected =   $chiTietMuontraModel->deleteOne($ma_mt, $ma_sach);
-        if ($row_affected == 0) {
-            $_SESSION['err'] = "Xóa mượn trả sách chỉ được thực hiện khi đã trả sách";
-            redirect("/");
-            exit;
-        }
-        $count_muon_tra = $muonTraModel->count_muon_tra($ma_mt);
-        if ($count_muon_tra == 0) {
-            $muonTraModel->deleteOne($ma_mt);
-        }
-        $_SESSION['msg'] = "Xóa mượn trả sách thành công!";
-        return redirect('/');
+
+        $ds_mt = $muonTraModel->get();
+
+        echo array_csv_download($ds_mt, "muon_tra.csv");
     }
 }

@@ -54,7 +54,7 @@
                             </thead>
                             <tbody>
                                 <?php foreach ($ds_dg as $each) { ?>
-                                    <tr>
+                                    <tr class="<?= $each['da_qua_han'] == 1 ? 'table-danger' : 'table-success' ?>">
                                         <td><?= $each['ma_dg'] ?></td>
                                         <td><?= $each['ten_dg'] ?></td>
                                         <td><?= $each['dia_chi'] ?></td>

@@ -35,6 +35,17 @@ class DocGiaController
             'page' => $page
         ]);
     }
+
+    public function thongKeDocGia()
+    {
+        $docGiaModel = new DocGia();
+
+        $data = $docGiaModel->thongKeDocGia();
+        echo json_encode([
+            'success' => true,
+            'data' => $data
+        ]);
+    }
     public function create()
     {
 

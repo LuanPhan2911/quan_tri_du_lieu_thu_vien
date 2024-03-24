@@ -80,6 +80,83 @@ create table chi_tiet_muon_tra(
     foreign key(ma_mt) references muon_tra(ma_mt) on delete cascade,
     foreign key(ma_sach) references sach(ma_sach) on delete cascade
 );
+##################################################
+delimiter $
+drop function if exists da_qua_han $
+create function da_qua_han(
+	ngay_het_han date
+)
+returns bool deterministic
+begin
+	return ngay_het_han < curdate();
+end $
+delimiter ;
+
+delimiter $
+drop function if exists count_tac_gia $
+create function count_tac_gia()
+returns int deterministic
+begin
+	return (select count(*) from tac_gia);
+end $
+delimiter ;
+
+delimiter $
+drop function if exists count_nhan_vien $
+create function count_nhan_vien()
+returns int deterministic
+begin
+	return (select count(*) from nhan_vien);
+end $
+delimiter ;
+
+delimiter $
+drop function if exists count_the_loai $
+create function count_the_loai()
+returns int deterministic
+begin
+	return (select count(*) from the_loai);
+end $
+delimiter ;
+
+delimiter $
+drop function if exists count_sach $
+create function count_sach()
+returns int deterministic
+begin
+	return (select count(*) from sach);
+end $
+delimiter ;
+
+delimiter $
+drop function if exists count_nha_xuat_ban $
+create function count_nha_xuat_ban()
+returns int deterministic
+begin
+	return (select count(*) from nha_xuat_ban);
+end $
+delimiter ;
+
+delimiter $
+drop function if exists count_doc_gia $
+create function count_doc_gia()
+returns int deterministic
+begin
+	return (select count(*) from doc_gia);
+end $
+delimiter ;
+
+
+delimiter $
+drop function if exists count_muon_tra $
+create function count_muon_tra()
+returns int deterministic
+begin
+	return (select count(*) from chi_tiet_muon_tra);
+end $
+delimiter ;
+
+#############################################
 
 delimiter $
 drop procedure if exists phan_trang_sach $
@@ -117,9 +194,12 @@ create procedure phan_trang_doc_gia(
     inout total_page int
 )
 begin
-	set total_record= (select count(*) from sach where ten_sach like concat('%', q, '%'));
+	set total_record= (select count(*) from doc_gia where 
+        ten_dg like concat('%', q, '%')
+        or
+        dia_chi like concat('%', q, '%'));
     set total_page= ceil(total_record / n_limit);
-select *
+	select *, da_qua_han(ngay_het_han) as da_qua_han
         from doc_gia
         join the_thu_vien
         on doc_gia.so_the= the_thu_vien.so_the
@@ -127,12 +207,164 @@ select *
         ten_dg like concat('%', q, '%')
         or
         dia_chi like concat('%', q, '%')
+        order by da_qua_han desc
         limit n_limit
         offset n_offset
         ;
 end $
 delimiter ;
 
-set @total_page= 0;
-set @total_record= 0;
-call phan_trang_sach('', 5, 5, @total_record, @total_page );
+
+delimiter $
+drop procedure if exists phan_trang_muon_tra $
+create procedure phan_trang_muon_tra(
+	in q varchar(100),
+	in n_limit int,
+    in n_offset int,
+	inout total_record int,
+    inout total_page int
+)
+begin
+	set total_record= (
+		select count(*) from muon_tra
+		join chi_tiet_muon_tra
+        on muon_tra.ma_mt = chi_tiet_muon_tra.ma_mt
+        join sach
+        on chi_tiet_muon_tra.ma_sach=sach.ma_sach
+        join doc_gia
+        on doc_gia.so_the= muon_tra.so_the
+		where
+        ten_sach like concat('%', q, '%')
+        or
+        ten_dg like concat('%', q, '%')
+    );
+    set total_page= ceil(total_record / n_limit);
+ select 
+        muon_tra.*,
+        chi_tiet_muon_tra.*,
+        sach.ten_sach,
+        doc_gia.ten_dg
+        from muon_tra
+        join chi_tiet_muon_tra
+        on muon_tra.ma_mt = chi_tiet_muon_tra.ma_mt
+        join sach
+        on chi_tiet_muon_tra.ma_sach=sach.ma_sach
+        join doc_gia
+        on doc_gia.so_the= muon_tra.so_the
+        where
+        ten_sach like concat('%', q, '%')
+        or
+        ten_dg like concat('%', q, '%')
+        order by da_tra asc, ngay_tra desc
+        limit n_limit
+        offset n_offset
+        ;
+end $
+delimiter ;
+
+
+
+delimiter $
+drop procedure if exists muon_tra_trong_ngay $
+create procedure muon_tra_trong_ngay(
+inout count_muon int,
+inout count_tra int
+) 
+begin
+	set count_muon= (select count(*) 
+		from muon_tra
+		join chi_tiet_muon_tra
+		on chi_tiet_muon_tra.ma_mt = muon_tra.ma_mt
+		where ngay_muon = curdate()
+        );
+	set count_tra=(select count(*) 
+		from muon_tra
+		join chi_tiet_muon_tra
+		on chi_tiet_muon_tra.ma_mt = muon_tra.ma_mt
+		where ngay_tra = curdate()
+        );
+    
+end $
+delimiter ;
+
+delimiter $
+drop procedure if exists muon_tra_trong_tuan $
+create procedure muon_tra_trong_tuan(
+inout count_muon int,
+inout count_tra int
+) 
+begin
+	set count_muon= (select count(*) 
+		from muon_tra
+		join chi_tiet_muon_tra
+		on chi_tiet_muon_tra.ma_mt = muon_tra.ma_mt
+		where ngay_muon > date_sub(now(), interval 1 week)
+        );
+	set count_tra=(select count(*) 
+		from muon_tra
+		join chi_tiet_muon_tra
+		on chi_tiet_muon_tra.ma_mt = muon_tra.ma_mt
+		where ngay_tra > date_sub(now(), interval 1 week)
+        );
+end $
+delimiter ;
+
+delimiter $
+drop procedure if exists muon_tra_trong_thang $
+create procedure muon_tra_trong_thang(
+inout count_muon int,
+inout count_tra int
+) 
+begin
+	set count_muon= (select count(*) 
+		from muon_tra
+		join chi_tiet_muon_tra
+		on chi_tiet_muon_tra.ma_mt = muon_tra.ma_mt
+		where ngay_muon > date_sub(now(), interval 1 month)
+        );
+	set count_tra=(select count(*) 
+		from muon_tra
+		join chi_tiet_muon_tra
+		on chi_tiet_muon_tra.ma_mt = muon_tra.ma_mt
+		where ngay_tra > date_sub(now(), interval 1 month)
+        );
+end $
+delimiter ;
+
+delimiter $
+drop procedure if exists thong_ke_doc_gia $
+create procedure thong_ke_doc_gia(
+inout count_con_han int,
+inout count_qua_han int
+) 
+begin
+	set count_con_han= (select count(*) 
+		from doc_gia
+		join the_thu_vien
+		on the_thu_vien.so_the = doc_gia.so_the
+		where ngay_het_han >= curdate()
+        );
+	set count_qua_han=(select count(*) 
+		from doc_gia
+		join the_thu_vien
+		on the_thu_vien.so_the = doc_gia.so_the
+		where ngay_het_han < curdate()
+        );
+end $
+delimiter ;
+
+delimiter $
+drop procedure if exists thong_ke_chung $
+create procedure thong_ke_chung() 
+begin
+    select count_muon_tra() as count_muon_tra,
+			count_doc_gia() as count_doc_gia,
+            count_the_loai() as count_the_loai,
+            count_tac_gia() as count_tac_gia,
+            count_sach() as count_sach,
+            count_nhan_vien() as count_nhan_vien,
+            count_nha_xuat_ban() as count_nha_xuat_ban
+            ;
+end $
+delimiter ;
+

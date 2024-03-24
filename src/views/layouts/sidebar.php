@@ -8,13 +8,11 @@
                 <a href="/" class="nav-link align-middle px-0">
                     <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Trang chủ</span>
                 </a>
-
             </li>
             <li class="nav-item">
-                <a href="/doc-gia" class="nav-link align-middle px-0">
-                    <i class="fs-4 bi-person-circle"></i> <span class="ms-1 d-none d-sm-inline">Độc giả</span>
+                <a href="/muon-tra" class="nav-link align-middle px-0">
+                    <i class="fs-4 bi-book-half"></i> <span class="ms-1 d-none d-sm-inline">Mượn trả</span>
                 </a>
-
             </li>
             <li class="nav-item">
                 <a href="/sach" class="nav-link align-middle px-0">
@@ -34,6 +32,13 @@
                 </a>
 
             </li>
+            <li class="nav-item">
+                <a href="/doc-gia" class="nav-link align-middle px-0">
+                    <i class="fs-4 bi-person-circle"></i> <span class="ms-1 d-none d-sm-inline">Độc giả</span>
+                </a>
+
+            </li>
+
             <li class="nav-item">
                 <a href="/nhan-vien" class="nav-link align-middle px-0">
                     <i class="fs-4 bi-person-badge"></i> <span class="ms-1 d-none d-sm-inline">Nhân viên</span>

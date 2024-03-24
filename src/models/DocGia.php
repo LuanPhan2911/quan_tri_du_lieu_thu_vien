@@ -61,6 +61,18 @@ class DocGia extends Model
         from doc_gia
         join the_thu_vien
         on doc_gia.so_the= the_thu_vien.so_the
+        where da_qua_han(ngay_het_han)=0
+        ");
+
+        return $statement->fetchAll();
+    }
+    public function getAll()
+    {
+        $statement = $this->conn->query("
+        select *
+        from doc_gia
+        join the_thu_vien
+        on doc_gia.so_the= the_thu_vien.so_the
         ");
 
         return $statement->fetchAll();
@@ -97,5 +109,21 @@ class DocGia extends Model
     public function deleteOne($ma)
     {
         return $this->conn->query("delete from doc_gia where ma_dg='$ma'");
+    }
+    public function thongKeDocGia()
+    {
+        $statement = $this->conn->prepare(
+            "call thong_ke_doc_gia(@count_con_han,@count_qua_han)"
+        );
+        $statement->execute();
+        $statement->closeCursor();
+
+        $count_con_han = $this->getVar("@count_con_han");
+        $count_qua_han = $this->getVar("@count_qua_han");
+
+        return [
+            'count_con_han' => $count_con_han,
+            'count_qua_han' => $count_qua_han
+        ];
     }
 }
